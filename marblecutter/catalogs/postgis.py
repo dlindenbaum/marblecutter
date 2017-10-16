@@ -69,7 +69,7 @@ class PostGISCatalog(Catalog):
                     AND enabled = true
                 ORDER BY url
             ) AS _
-            ORDER BY priority DESC, rounded_resolution ASC, distance ASC
+            ORDER BY priority ASC, rounded_resolution ASC, distance ASC
         """.format(table=self.table, geometry_column=self.geometry_column)
 
         # height and width of the CRS
