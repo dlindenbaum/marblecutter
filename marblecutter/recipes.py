@@ -74,6 +74,14 @@ def apply(recipes, pixels, source=None):
     if "imagery" in recipes:
         LOG.info("Applying imagery recipe")
 
+        if "nd_bands" in recipes:
+            # nd_bands or rgb_bands should be in recipe,  Otherwise an error will occur
+            LOG.info("nd_bands")
+            band1_tile = np.ma.array(data[recipes['nd_bands'][0]-1])
+            band2_tile = np.ma.array(data[recipes['nd_bands'][1]-1])
+
+            data = np.ma.array([(band2_tile.astype(float) - band1_tile.astype(float)) / (band2_tile.astype(float) + band1_tile.astype(float))])
+
         if "rgb_bands" in recipes:
             data = np.ma.array([data[i - 1] for i in recipes["rgb_bands"]])
 
